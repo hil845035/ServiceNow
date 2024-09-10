@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script_client">
+    <sys_script_client action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <applies_extended>false</applies_extended>
+        <condition/>
+        <description/>
+        <field>assignment_group</field>
+        <global>true</global>
+        <isolate_script>true</isolate_script>
+        <messages/>
+        <name>assignGroupMember</name>
+        <order/>
+        <script><![CDATA[function onChange(control, oldValue, newValue, isLoading, isTemplate) {
+    if (isLoading || newValue === '') {
+        return;
+    }
+    var ga = new GlideAjax('getGrupMember');
+    ga.addParam('sysparm_name', 'assignMembers');
+    ga.addParam('sysparm_group_name', g_form.getValue('assignment_group'));
+
+    ga.getXMLAnswer(groupMember);
+
+    function groupMember(response){
+        var member = JSON.parse(response);
+        if (member.length>0){
+            var randomNum = Math.floor(Math.random()* member.length);
+            g_form.setValue('assigned_to',member[randomNum].sys_id);
+        } 
+		else {
+            g_form.setValue('assigned_to','');
+        }
+        //Type appropriate comment here, and begin script below
+
+    }
+
+}]]></script>
+        <sys_class_name>sys_script_client</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-09-02 03:51:19</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>01bafd03479c5210b627b4fe316d43ee</sys_id>
+        <sys_mod_count>8</sys_mod_count>
+        <sys_name>assignGroupMember</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Global" source="global">global</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Test">1cadfa3d47201210b627b4fe316d43c7</sys_scope>
+        <sys_update_name>sys_script_client_01bafd03479c5210b627b4fe316d43ee</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-09-10 21:41:11</sys_updated_on>
+        <table>incident</table>
+        <type>onChange</type>
+        <ui_type>0</ui_type>
+        <view/>
+    </sys_script_client>
+    <sys_claim action="INSERT_OR_UPDATE">
+        <claim_owner_scope display_value="Test">1cadfa3d47201210b627b4fe316d43c7</claim_owner_scope>
+        <claim_timestamp>191dde226810000001</claim_timestamp>
+        <metadata_update_name>sys_script_client_01bafd03479c5210b627b4fe316d43ee</metadata_update_name>
+        <previous_claim_app_version>1.0.0</previous_claim_app_version>
+        <previous_claim_name>Test</previous_claim_name>
+        <previous_claim_scope>1cadfa3d47201210b627b4fe316d43c7</previous_claim_scope>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-09-10 21:41:11</sys_created_on>
+        <sys_id>00a0cb7147601210b627b4fe316d434c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-09-10 21:41:11</sys_updated_on>
+    </sys_claim>
+</record_update>
